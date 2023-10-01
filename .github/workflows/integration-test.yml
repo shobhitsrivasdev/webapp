@@ -34,5 +34,5 @@ jobs:
 
       - name: Run Integration Tests
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          DATABASE_URL: postgres://postgres:postgres@localhost:5433/test_db
         run: npm run test:integration # Assuming you have a script in your package.json named "test:integration" that runs your integration tests.
