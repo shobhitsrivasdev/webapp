@@ -8,19 +8,31 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-      
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.x # Assuming you are using Node.js. Change this accordingly.
-      
-    - name: Install Dependencies
-      run: npm install
-      
-    - name: Run Integration Tests
-      run: npm run test:integration # Assuming you have a script in your package.json named "test:integration" that runs your integration tests.
 
+    services:
+      postgres:
+        image: postgres:12 # You can specify any version you prefer.
+        env:
+          POSTGRES_USER: shobhitsrivastava
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5433 # Maps tcp port 5432 on service container to the host
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x # Assuming you are using Node.js. Change this accordingly.
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Integration Tests
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+        run: npm run test:integration # Assuming you have a script in your package.json named "test:integration" that runs your integration tests.
