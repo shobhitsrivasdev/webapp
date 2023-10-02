@@ -27,7 +27,7 @@ jobs:
           touch .env
           echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
           cat .env
-          echo secrets
+          echo ${{ secrets.PGDATABASE }} 
 
       - name: Checkout Code
         uses: actions/checkout@v2
