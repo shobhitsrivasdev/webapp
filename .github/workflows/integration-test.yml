@@ -12,11 +12,11 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-
+        
         env:
-          PGDATABASE: ${{ secrets.PGDATABASE }}
-          PGUSER: ${{ secrets.PGUSER }}
-          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          POSTGRES_DB: ${{ secrets.PGDATABASE }}
+          POSTGRES_USER: ${{ secrets.PGUSER }}
+          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5

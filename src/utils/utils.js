@@ -28,8 +28,7 @@ export const handleErrorResponse = (error, response) => {
     response.sendStatus(errorCode);
   } else if (
     error == "Provided Credentials do not match" ||
-    error == "Username does not exist" ||
-    error == "Email not verified"
+    error == "Username does not exist"
   ) {
     errorCode = 401;
     response.sendStatus(errorCode);
