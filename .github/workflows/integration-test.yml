@@ -1,41 +1,31 @@
+---
 name: Integration Tests
-
 on:
   pull_request:
     branches:
-      - main # Assuming your primary branch is named 'main'
-
+      - main
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:latest
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
-      - name: 'Create env file one level up'
+      - name: Create env file one level up
         run: |
           touch ../.env
           echo PGDATABASE=${{ secrets.PGDATABASE }} >> ../.env
-          echo PGHOST=${{ secrets.PGHOST }} >> ../.env
-          echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> ../.env
-          echo PGPORT=${{ secrets.PGPORT }} >> ../.env
-          echo PGUSER=${{ secrets.PGUSER }} >> ../.env
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x # Adjust as needed
-
+          node-version: 16.x
       - name: Install Dependencies
         run: npm install
-
       - name: Run Integration Tests
-        run: npm run test:integration # Adjust if your script name is different
+        run: npm run test:integration
