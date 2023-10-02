@@ -24,8 +24,10 @@ jobs:
     steps:
       - name: "Create env file"
         run: |
-          echo PGDATABASE=${{ secrets.PGDATABASE }} > .env
+          touch .env
+          echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
           cat .env
+          echo secrets
 
       - name: Checkout Code
         uses: actions/checkout@v2
