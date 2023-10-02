@@ -13,11 +13,7 @@ describe("Healthz Endpoint", () => {
     jest.mock("../models/index.js", () => ({
       connectionTest: () => Promise.resolve(),
     }));
-    try {
-      const res = await request(app).get("/healthz");
-      expect(res.statusCode).toEqual(200);
-    } catch (error) {
-      console.log("EROROROR---", error);
-    }
+    const res = await request(app).get("/healthz");
+    expect(res.statusCode).toEqual(200);
   });
 });
