@@ -12,7 +12,6 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-
         env:
           POSTGRES_DB: ${{ secrets.PGDATABASE }}
           POSTGRES_USER: ${{ secrets.PGUSER }}
@@ -28,9 +27,17 @@ jobs:
 
       - name: "Create env file"
         run: |
-          touch ../.env
-          echo PGDATABASE=${{ secrets.PGDATABASE }} >> ../.env
-          cat ../.env
+          touch .env
+          echo PGDATABASE=$POSTGRES_DB >> .env
+          echo PGUSER=$POSTGRES_USER >> .env
+          echo PGPASSWORD=$POSTGRES_PASSWORD >> .env
+          echo "cat .env"
+          cat .env
+          echo "ls -a ."
+          ls -a .
+          echo "ls -a ${{ github.workspace }}"
+          ls -a ${{ github.workspace }}
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
