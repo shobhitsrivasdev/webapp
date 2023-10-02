@@ -9,7 +9,7 @@ export const sequelize = new Sequelize(
   {
     host: "localhost",
     operatorsAliases: false,
-    port: 5433,
+    port: 5432,
     dialect: "postgres",
     dialectOptions: {},
   }
