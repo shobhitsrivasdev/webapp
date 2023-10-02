@@ -31,7 +31,7 @@ jobs:
           node-version: 16.x # Assuming you are using Node.js. Change this accordingly.
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install # chekcout to directory, touch a enc file, pull all secrets 
 
       - name: Run Integration Tests
         run: npm run test:integration # Assuming you have a script in your package.json named "test:integration" that runs your integration tests.

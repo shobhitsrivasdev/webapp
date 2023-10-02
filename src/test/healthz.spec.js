@@ -2,6 +2,8 @@ import request from "supertest";
 import express from "express";
 import bodyParser from "body-parser";
 import router from "../routes/healthz.route.js";
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 const app = express();
 app.use(bodyParser.json());
