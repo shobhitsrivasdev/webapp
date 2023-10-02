@@ -4,17 +4,17 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 export const sequelize = new Sequelize(
-  process.env.PGDATABASE,
-  process.env.PGUSER,
-  process.env.PGPASSWORD,
+  "postgres",
+  "shobhitsrivastava",
+  "password",
   {
-    host: process.env.PGHOST,
-    dialect: dbConfig.dialect,
+    host: "localhost",
     operatorsAliases: false,
     port: 5433,
+    dialect: "postgres",
+    dialectOptions: {},
   }
 );
-
 
 
 export const handleErrorResponse = (error, response) => {
