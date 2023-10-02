@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(router);
 
+console.log("PORTTT---", process.env.PGDATABASE);
 describe("Healthz Endpoint", () => {
   it("should return 200 for successful GET requests without body or query", async () => {
     // Mock successful DB connection for this test
