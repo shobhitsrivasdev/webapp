@@ -16,6 +16,8 @@ jobs:
           POSTGRES_DB: ${{ secrets.PGDATABASE }}
           POSTGRES_USER: ${{ secrets.PGUSER }}
           POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
+          POSTGRES_PORT: ${{ secrets.PGPORT }}
+          POSTGRES_HOST: ${{ secrets.PGHOST }}
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -31,6 +33,8 @@ jobs:
           echo PGDATABASE=$POSTGRES_DB >> .env
           echo PGUSER=$POSTGRES_USER >> .env
           echo PGPASSWORD=$POSTGRES_PASSWORD >> .env
+          echo PGPORT=$POSTGRES_PORT >> .env
+          echo PGHOST=$POSTGRES_HOST >> .env
           echo "cat .env"
           cat .env
           echo "ls -a ."
