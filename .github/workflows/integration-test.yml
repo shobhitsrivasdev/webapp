@@ -12,22 +12,20 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-
-        env:
-          POSTGRES_DB: ${{ secrets.PGDATABASE }}
-          POSTGRES_USER: ${{ secrets.PGUSER }}
-          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - name: "Create env file"
+      - name: 'Create env file'
         run: |
           touch .env
           echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
+          echo PGHOST=${{ secrets.PGHOST }} >> .env
+          echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
+          echo PGPORT=${{ secrets.PGPORT }} >> .env
+          echo PGUSER=${{ secrets.PGUSER }} >> .env
           cat .env
-          echo ${{ secrets.PGDATABASE }} 
 
       - name: Checkout Code
         uses: actions/checkout@v2
