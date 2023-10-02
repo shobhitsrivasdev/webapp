@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(router);
 
+console.log("ENV---", process.env);
 console.log("PORTTT---", process.env.PGDATABASE);
 console.log("ENV---", process.env.NODE_ENV);
 describe("Healthz Endpoint", () => {
