@@ -30,11 +30,11 @@ jobs:
       - name: "Create env file"
         run: |
           touch .env
-          echo PGDATABASE="postgres" >> .env
+          echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
           echo PGUSER=${{ secrets.PGUSER }} >> .env
-          echo PGPASSWORD=$POSTGRES_PASSWORD >> .env
-          echo PGPORT=$POSTGRES_PORT >> .env
-          echo PGHOST=$POSTGRES_HOST >> .env
+          echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
+          echo PGPORT=${{ secrets.PGPORT }} >> .env
+          echo PGHOST=${{ secrets.PGHOST }} >> .env
           echo "cat .env"
           cat .env
           echo "ls -a ."
