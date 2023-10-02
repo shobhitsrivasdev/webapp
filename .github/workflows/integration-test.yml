@@ -30,7 +30,7 @@ jobs:
       - name: "Create env file"
         run: |
           touch .env
-          echo PGDATABASE=$POSTGRES_DB >> .env
+          echo PGDATABASE="postgres" >> .env
           echo PGUSER=$POSTGRES_USER >> .env
           echo PGPASSWORD=$POSTGRES_PASSWORD >> .env
           echo PGPORT=$POSTGRES_PORT >> .env
