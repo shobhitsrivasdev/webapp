@@ -3,7 +3,7 @@ import csv from "csv-parser";
 import fs from "fs";
 
 export const create = async () => {
-  fs.createReadStream("utils/users.csv")
+  fs.createReadStream("src/utils/users.csv")
     .pipe(csv())
     .on("data", async (data) => {
       console.log(data);

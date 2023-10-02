@@ -1,18 +1,17 @@
-import bcrypt from "bcrypt";
 import { Sequelize } from 'sequelize'
 import dbConfig from "../configs/dbConfig.js";
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 export const sequelize = new Sequelize(
-  dbConfig.DB,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
+  process.env.PGDATABASE,
+  process.env.PGUSER,
+  process.env.PGPASSWORD,
   {
-    host: dbConfig.HOST,
+    host: process.env.PGHOST,
     dialect: dbConfig.dialect,
     operatorsAliases: false,
-    port: dbConfig.port,
-    dialectOptions: {},
-    pool: dbConfig.pool,
+    port: 5433,
   }
 );
 

@@ -11,13 +11,13 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12 # You can specify any version you prefer.
+        image: postgres:latest
         env:
-          POSTGRES_USER: shobhitsrivastava
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: postgres
+          POSTGRES_DB: ${{ secrets.PGDATABASE }}
+          POSTGRES_USER: ${{ secrets.PGUSER }}
+          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
         ports:
-          - 5432:5433 # Maps tcp port 5432 on service container to the host
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -33,6 +33,4 @@ jobs:
         run: npm install
 
       - name: Run Integration Tests
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5433/test_db
         run: npm run test:integration # Assuming you have a script in your package.json named "test:integration" that runs your integration tests.

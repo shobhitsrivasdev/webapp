@@ -1,16 +1,17 @@
-import dbConfig from "../configs/dbConfig.js";
 import Sequelize from "sequelize";
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 export const sequelize = new Sequelize(
-  dbConfig.DB,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
+  process.env.PGDATABASE,
+  process.env.PGUSER,
+  process.env.PGPASSWORD,
   {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
+    host: process.env.PGHOST,
     operatorsAliases: false,
-    port: dbConfig.port,
+    port: 5433,
+    dialect: "postgres",
     dialectOptions: {},
-    pool: dbConfig.pool,
   }
 );
 
