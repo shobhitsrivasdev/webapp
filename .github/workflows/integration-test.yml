@@ -31,7 +31,7 @@ jobs:
         run: |
           touch .env
           echo PGDATABASE="postgres" >> .env
-          echo PGUSER=$POSTGRES_USER >> .env
+          echo PGUSER=${{ secrets.PGUSER }} >> .env
           echo PGPASSWORD=$POSTGRES_PASSWORD >> .env
           echo PGPORT=$POSTGRES_PORT >> .env
           echo PGHOST=$POSTGRES_HOST >> .env
