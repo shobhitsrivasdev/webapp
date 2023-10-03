@@ -55,11 +55,7 @@ export const updateSingleAssignment = async (request, response) => {
 export const getAll = async (request) => {
   const user = await isUserAuthorized(request);
 
-  const getDocumentsResult = await Assignment.findAll({
-    where: {
-      user_id: user.id,
-    },
-  });
+  const getDocumentsResult = await Assignment.findAll();
 
   return getDocumentsResult;
 };
@@ -70,7 +66,6 @@ export const getSingleAssignment = async (request) => {
 
   const getDocumentsResult = await Assignment.findOne({
     where: {
-      user_id: user.id,
       id: assignment_id,
     },
   });
