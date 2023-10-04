@@ -3,7 +3,10 @@ import csv from "csv-parser";
 import fs from "fs";
 
 export const create = async () => {
-  fs.createReadStream("src/utils/users.csv")
+  fs.createReadStream(process.env.CSVPATH)
+    .on("error", () => {
+      console.error("Error in reading file");
+    })
     .pipe(csv())
     .on("data", async (data) => {
       console.log(data);

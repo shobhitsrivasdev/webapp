@@ -8,7 +8,7 @@ export const create = async (request, response) => {
     request.query &&
     Object.values(request.query).length
   ) {
-    throw "Bad Request";
+    response.status(400).json({ message: "Bad Request" });
   }
 
   user.password = undefined;
@@ -38,7 +38,7 @@ export const create = async (request, response) => {
   });
 
   delete assignmentCreated["dataValues"]?.user_id;
-  return  assignmentCreated;
+  return assignmentCreated;
 };
 
 export const updateSingleAssignment = async (request, response) => {
@@ -48,13 +48,12 @@ export const updateSingleAssignment = async (request, response) => {
     request.query &&
     Object.values(request.query).length
   ) {
-    throw "Bad Request";
+    response.status(400).json({ message: "Bad Request" });
+    return;
   }
-
   const assignment_id = request.params.id;
   const newReq = {};
   // Insert entries in the Document table for the uploaded files
-  console.log("Request-------", request);
   if (request.body.name) {
     newReq.name = request.body.name;
   }
@@ -84,7 +83,7 @@ export const updateSingleAssignment = async (request, response) => {
   }
 };
 
-export const getAll = async (request) => {
+export const getAll = async (request, response) => {
   await isUserAuthorized(request);
   if (
     (request.method === "GET" &&
@@ -92,7 +91,8 @@ export const getAll = async (request) => {
       Object.values(request.body).length) ||
     (request.query && Object.values(request.query).length)
   ) {
-    throw "Bad Request";
+    response.status(400).json({ message: "Bad Request" });
+    return;
   }
   const getDocumentsResult = await Assignment.findAll();
 
@@ -109,15 +109,16 @@ export const getAll = async (request) => {
   });
 };
 
-export const getSingleAssignment = async (request) => {
+export const getSingleAssignment = async (request, response) => {
   const user = await isUserAuthorized(request);
   if (
-    (request.method === "GET" &&
+    (request.method === "DELETE" &&
       request.body &&
       Object.values(request.body).length) ||
     (request.query && Object.values(request.query).length)
   ) {
-    throw "Bad Request";
+    response.status(400).json({ message: "Bad Request" });
+    return;
   }
   const assignment_id = request.params.id;
 
@@ -140,7 +141,7 @@ export const getSingleAssignment = async (request) => {
   return getDocumentsResult;
 };
 
-export const deleteSingleAssignment = async (request) => {
+export const deleteSingleAssignment = async (request, response) => {
   const user = await isUserAuthorized(request, "assignment");
   if (
     (request.method === "DELETE" &&
@@ -148,7 +149,8 @@ export const deleteSingleAssignment = async (request) => {
       Object.values(request.body).length) ||
     (request.query && Object.values(request.query).length)
   ) {
-    throw "Bad Request";
+    response.status(400).json({ message: "Bad Request" });
+    return;
   }
   const assignment_id = request.params.id;
   console.log("USERID", user.id);

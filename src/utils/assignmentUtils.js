@@ -34,8 +34,11 @@ export const isUserAuthorized = async (request, type) => {
         id: reqId,
       },
     });
-    if(!fetchedAssignment){
-      throw "Assignment with mentioned ID does not exist";
+    if (!fetchedAssignment) {
+      throw "Not Found";
+    }
+    if (dbAcc.id !== fetchedAssignment.user_id) {
+      throw "User not authorized to access";
     }
     if (fetchedAssignment?.user_id == dbAcc.id && compareResult) {
       return dbAcc;
