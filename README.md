@@ -10,5 +10,4 @@ To install and run the app locally, you need to have the following installed
 - `node v.16.17.0` and above
 
 ## Installation
-
 - npm install
