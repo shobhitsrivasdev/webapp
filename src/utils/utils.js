@@ -18,6 +18,11 @@ export const sequelize = new Sequelize(
 export const handleErrorResponse = (error, response) => {
   //console.log("HERE----", error);
   let errorCode = 400;
+  if (error == "Bad Request") {
+    errorCode = 400;
+    response.status(errorCode).json({ message: error });
+    return;
+  }
   if (error == "SequelizeConnectionRefusedError") {
     errorCode = 503;
     response.status(503).json({ message: "Service Unavailable" });
