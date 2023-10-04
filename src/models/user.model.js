@@ -23,9 +23,12 @@ const Account = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: "email",
+      unique: true,
       validate: {
-        isEmail: true,
+        isEmail: {
+          args:true,
+          msg:"user name should be a valid email address"
+        },
       },
     },
     password: {
@@ -50,13 +53,13 @@ Account.beforeCreate(async (acc) => {
   }
 });
 
-try {
+/* try {
   await sequelize.authenticate();
   console.log("Database connection has been established successfully.");
   await Account.sync({ alter: true });
   console.log("Account model was synchronized successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
-}
+} */
 
 export default Account;
