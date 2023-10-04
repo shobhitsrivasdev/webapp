@@ -90,7 +90,7 @@ const Assignment = sequelize.define(
   }
 );
 
-/* try {
+try {
   await sequelize.authenticate();
   console.log("Database connection has been established successfully.");
   await Assignment.sync({ alter: true });
@@ -98,5 +98,5 @@ const Assignment = sequelize.define(
 } catch (error) {
   console.error("Unable to connect to the database:", error);
 }
- */
+
 export default Assignment;
