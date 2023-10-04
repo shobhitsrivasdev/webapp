@@ -14,7 +14,7 @@ export const getAll = async (request, response) => {
 export const post = async (request, response) => {
   try {
     const doc = await assignmentService.create(request, response);
-    response.status(200).send(doc);
+    response.status(201).send(doc);
     console.log(Date().toString() + " :: Returned 201 :: Document Created ");
   } catch (error) {
     handleErrorResponse(error, response);
@@ -43,7 +43,7 @@ export const deleteOne = async (request, response) => {
 export const updateOne = async (request, response) => {
     try {
       const doc = await assignmentService.updateSingleAssignment(request, response);
-      response.status(200).send(doc);
+      response.status(204).send();
     } catch (error) {
       handleErrorResponse(error, response);
     }

@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from "sequelize";
 import dbConfig from "../configs/dbConfig.js";
-import * as dotenv from 'dotenv'
-dotenv.config()
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export const sequelize = new Sequelize(
   process.env.PGDATABASE,
@@ -15,29 +15,48 @@ export const sequelize = new Sequelize(
   }
 );
 
-
-
 export const handleErrorResponse = (error, response) => {
+  //console.log("HERE----", error);
   let errorCode = 400;
+  if (error && error.message) {
+    response.status(errorCode).json({ message: error.message });
+    return;
+  }
   if (
     error == "ID and username do not match" ||
     error == "Provide Basic Auth Credentials" ||
-    error == "Document with mentioned ID does not exist for this user"
+    error == "Assignment with mentioned ID does not exist for this user"
   ) {
     errorCode = 403;
-    response.sendStatus(errorCode);
+    response.status(errorCode).json({ message: error });
+    return;
   } else if (
     error == "Provided Credentials do not match" ||
     error == "Username does not exist"
   ) {
     errorCode = 401;
-    response.sendStatus(errorCode);
-  } else if (error == "Invalid input fields") {
+    response.status(errorCode).json({ message: error });
+    return;
+  } else if (error == "Invalid input fields" || error == "Bad Request") {
     errorCode = 400;
-    response.sendStatus(errorCode);
+    response.status(errorCode).json({ message: error });
+    return;
   } else if (error == "Assignment not found" || error == "Token not found") {
     errorCode = 404;
-    response.sendStatus(errorCode);
+    response.status(errorCode).json({ message: error });
+    return;
   }
-  console.log(Date().toString() + " :: Returned " + errorCode + " :: " + error);
+  if (error == "SequelizeConnectionRefusedError") {
+    errorCode = 503;
+    response.status(503).json({ message: "Service Unavailable" });
+    return;
+  }
+  if (error == "Assignment with mentioned ID does not exist") {
+    response.status(400).json({ message: "Bad Request" });
+  } else {
+    response.status(errorCode).json({ message: error });
+    return;
+  }
+  /*   console.log("THERE");
+  console.log(Date().toString() + " :: Returned " + errorCode + " :: " + error); */
 };

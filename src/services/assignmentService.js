@@ -3,10 +3,32 @@ import { isUserAuthorized } from "../utils/assignmentUtils.js";
 
 export const create = async (request, response) => {
   const user = await isUserAuthorized(request);
+  if (
+    request.method === "POST" &&
+    request.query &&
+    Object.values(request.query).length
+  ) {
+    throw "Bad Request";
+  }
+
   user.password = undefined;
+  const req = request.body;
   const userId = user.id;
-  // Insert entries in the Document table for the uploaded files
-  console.log("Request-------", request);
+  if (req.name && req.points && req.num_of_attempts && req.deadline) {
+    if (typeof req.name !== "string") {
+      throw "Bad Request";
+    }
+    if (typeof req.points !== "number") {
+      throw "Bad Request";
+    }
+    if (typeof req.num_of_attempts !== "number") {
+      throw "Bad Request";
+    }
+    if (new Date(req.deadline) == "Invalid Date") {
+      throw "Bad Request";
+    }
+  }
+
   const assignmentCreated = await Assignment.create({
     user_id: userId,
     name: request.body.name,
@@ -15,11 +37,20 @@ export const create = async (request, response) => {
     deadline: new Date(),
   });
 
-  return assignmentCreated;
+  delete assignmentCreated["dataValues"]?.user_id;
+  return  assignmentCreated;
 };
 
 export const updateSingleAssignment = async (request, response) => {
-  const user = await isUserAuthorized(request);
+  const user = await isUserAuthorized(request, "assignment");
+  if (
+    request.method === "PUT" &&
+    request.query &&
+    Object.values(request.query).length
+  ) {
+    throw "Bad Request";
+  }
+
   const assignment_id = request.params.id;
   const newReq = {};
   // Insert entries in the Document table for the uploaded files
@@ -46,45 +77,82 @@ export const updateSingleAssignment = async (request, response) => {
       },
       returning: true,
     });
+
     return updatedAssignment;
   } else {
-    throw "Document with mentioned ID does not exist for this user";
+    throw "Assignment with mentioned ID does not exist for this user";
   }
 };
 
 export const getAll = async (request) => {
-  const user = await isUserAuthorized(request);
+  await isUserAuthorized(request);
+  if (
+    (request.method === "GET" &&
+      request.body &&
+      Object.values(request.body).length) ||
+    (request.query && Object.values(request.query).length)
+  ) {
+    throw "Bad Request";
+  }
+  const getDocumentsResult = await Assignment.findAll();
 
-  const getDocumentsResult = await Assignment.findAll({
-    where: {
-      user_id: user.id,
-    },
+  return getDocumentsResult.map((data) => {
+    return {
+      id: data.id,
+      name: data.name,
+      points: data.points,
+      num_of_attempts: data.num_of_attempts,
+      deadline: data.deadline,
+      assignment_created: data.assignment_created,
+      assignment_updated: data.assignment_updated,
+    };
   });
-
-  return getDocumentsResult;
 };
 
 export const getSingleAssignment = async (request) => {
-  const user = await isUserAuthorized(request, "assignment");
+  const user = await isUserAuthorized(request);
+  if (
+    (request.method === "GET" &&
+      request.body &&
+      Object.values(request.body).length) ||
+    (request.query && Object.values(request.query).length)
+  ) {
+    throw "Bad Request";
+  }
   const assignment_id = request.params.id;
 
   const getDocumentsResult = await Assignment.findOne({
     where: {
-      user_id: user.id,
       id: assignment_id,
     },
   });
 
   if (getDocumentsResult == null) {
-    throw "Document with mentioned ID does not exist for this user";
+    throw "Assignment with mentioned ID does not exist for this user";
+  }
+  if (
+    getDocumentsResult &&
+    getDocumentsResult["dataValues"] &&
+    getDocumentsResult["dataValues"].user_id
+  ) {
+    delete getDocumentsResult["dataValues"].user_id;
   }
   return getDocumentsResult;
 };
 
 export const deleteSingleAssignment = async (request) => {
   const user = await isUserAuthorized(request, "assignment");
-
+  if (
+    (request.method === "DELETE" &&
+      request.body &&
+      Object.values(request.body).length) ||
+    (request.query && Object.values(request.query).length)
+  ) {
+    throw "Bad Request";
+  }
   const assignment_id = request.params.id;
+  console.log("USERID", user.id);
+  console.log("Assingment", assignment_id);
 
   const getDocumentsResult = await Assignment.findOne({
     where: {

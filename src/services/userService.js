@@ -12,7 +12,7 @@ export const create = async () => {
           email: data.email,
         },
       }).catch((err) => {
-        console.error("Internal server error while creating user", err);
+        console.error("Service Unavailable");
       });
       if (getUser) {
         console.error("User Already Exists");
@@ -23,6 +23,8 @@ export const create = async () => {
           last_name: data.last_name,
           password: data.password,
           email: data.email,
+        }).catch((err) => {
+          console.error("Service Unavailable");
         });
       }
     });
