@@ -17,12 +17,13 @@ To install and run the app locally, you need to have the following installed
 - npm run test:integration
 # API Routes
 ## Assignments Routes
-GET /assignments - Retrieve all assignments.
-POST /assignments - Add a new assignment.
-GET /assignments/:id - Retrieve a specific assignment by its ID.
-DELETE /assignments/:id - Delete a specific assignment by its ID.
-PUT /assignments/:id - Update a specific assignment by its ID.
+- GET /assignments - Retrieve all assignments.
+- POST /assignments - Add a new assignment.
+- GET /assignments/:id - Retrieve a specific assignment by its ID.
+- DELETE /assignments/:id - Delete a specific assignment by its ID.
+- PUT /assignments/:id - Update a specific assignment by its ID.
+- 
 All other methods to the above routes will return a 405 Method Not Allowed status.
 ## Health Check
-GET /healthz - Health check route.
+- GET /healthz - Health check route.
 All other methods to this route will return a 405 Method Not Allowed status

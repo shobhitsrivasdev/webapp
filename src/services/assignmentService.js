@@ -8,7 +8,7 @@ export const create = async (request, response) => {
     request.query &&
     Object.values(request.query).length
   ) {
-    response.status(400).json({ message: "Bad Request" });
+    throw "Bad Request"
   }
 
   user.password = undefined;
@@ -112,7 +112,7 @@ export const getAll = async (request, response) => {
 export const getSingleAssignment = async (request, response) => {
   const user = await isUserAuthorized(request);
   if (
-    (request.method === "DELETE" &&
+    (request.method === "GET" &&
       request.body &&
       Object.values(request.body).length) ||
     (request.query && Object.values(request.query).length)
