@@ -8,7 +8,7 @@ export const create = async (request, response) => {
     request.query &&
     Object.values(request.query).length
   ) {
-    throw "Bad Request"
+    throw "Bad Request";
   }
 
   user.password = undefined;
@@ -65,6 +65,14 @@ export const updateSingleAssignment = async (request, response) => {
   }
   if (request.body.deadline) {
     newReq.deadline = request.body.deadline;
+  }
+  if (
+    request.body?.name == null ||
+    request.body?.points == null ||
+    request.body?.num_of_attempts == null ||
+    request.body.deadline == null
+  ) {
+    throw "Bad Request";
   }
   const assignmentUpdated = await Assignment.findOne({
     where: { id: assignment_id },
