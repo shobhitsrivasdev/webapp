@@ -1,0 +1,25 @@
+name: Build AMI after PR is merged
+
+on:
+  push:
+    branches:
+      - feature-ami
+    paths:
+      - 'ami.pkr.hcl'
+
+jobs:
+  build-ami:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Packer
+      uses: hashicorp/setup-packer@v1
+
+    - name: Build AMI
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: packer build ami.pkr.hcl
