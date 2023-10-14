@@ -1,7 +1,7 @@
 name: Build CI
 
 on:
-  push:
+  pull_request:
     branches:
       - feature-ami # Assuming your primary branch is named 'main'
 
