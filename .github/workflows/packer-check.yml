@@ -22,6 +22,8 @@ jobs:
           unzip packer_${PACKER_VERSION}_linux_amd64.zip
           sudo mv packer /usr/local/bin/
           packer --version
+      - name: Initialize Packer
+        run: packer init ami.pkr.hcl
 
       - name: Validate Packer Template
         run: packer validate ami.pkr.hcl
