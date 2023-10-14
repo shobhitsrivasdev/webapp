@@ -1,0 +1,29 @@
+name: Packer Validation and Formatting Check
+
+on:
+  pull_request:
+    branches:
+      - feature-ami
+    paths:
+      - "ami.pkr.hcl"
+
+jobs:
+  packer-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Packer
+        uses: hashicorp/setup-packer@v1
+
+      - name: Validate Packer Template
+        run: packer validate ami.pkr.hcl
+
+      - name: Check Packer Template Formatting
+        run: |
+          if ! packer fmt -check ami.pkr.hcl; then
+            echo "Packer template is not formatted correctly. Please format using 'packer fmt ami.pkr.hcl' and re-push."
+            exit 1
+          fi
