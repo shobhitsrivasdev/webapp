@@ -1,4 +1,4 @@
-name: Build AMI after PR is merge
+name: Build AMI after PR is merged
 
 on:
   push:
