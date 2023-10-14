@@ -1,7 +1,7 @@
 name: Build AMI after PR is merged
 
 on:
-  push:
+  pull_request:
     branches:
       - feature-ami
     paths:
@@ -22,6 +22,8 @@ jobs:
         unzip packer_${PACKER_VERSION}_linux_amd64.zip
         sudo mv packer /usr/local/bin/
         packer --version
+    - name: Initialize Packer
+      run: packer init ami.pkr.hcl
 
     - name: Build AMI
       env:
