@@ -15,8 +15,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Packer
-        uses: hashicorp/setup-packer@v1
+      - name: Install Packer
+        run: |
+          PACKER_VERSION="1.9.4"  # specify your desired version
+          wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
+          unzip packer_${PACKER_VERSION}_linux_amd64.zip
+          sudo mv packer /usr/local/bin/
+          packer --version
 
       - name: Validate Packer Template
         run: packer validate ami.pkr.hcl
