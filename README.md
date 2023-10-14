@@ -26,4 +26,4 @@ To install and run the app locally, you need to have the following installed
 All other methods to the above routes will return a 405 Method Not Allowed status.
 ## Health Check
 - GET /healthz - Health check route.
-All other methods to this route will return a 405 Method Not Allowed status
+All other methods to this route will return a 405 Method Not Allowed statu
