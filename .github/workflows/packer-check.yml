@@ -1,7 +1,7 @@
 name: Packer Validation and Formatting Check
 
 on:
-  pull_request:
+  push:
     branches:
       - feature-ami
     paths:
