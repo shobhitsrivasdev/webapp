@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - feature-ami
-    paths:
-      - "ami.pkr.hcl"
 
 jobs:
   packer-check:
