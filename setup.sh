@@ -14,6 +14,7 @@ sudo systemctl enable postgresql
 # Install Node.js and npm
 sudo apt install -y nodejs
 sudo apt install -y npm
+sudo apt install -y unzip
 
 # Check Node.js version
 nodejs -v
