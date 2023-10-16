@@ -25,8 +25,8 @@ build {
     "source.amazon-ebs.debian"
   ]
   provisioner "file" {
-    source      = "webapp.zip"
-    destination = "~/webapp.zip"
+    source      = "assignment-03.zip"
+    destination = "~/assignment-03.zip"
   }
   provisioner "shell" {
     scripts = [
