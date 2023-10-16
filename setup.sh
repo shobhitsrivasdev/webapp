@@ -18,3 +18,8 @@ sudo apt install -y npm
 # Check Node.js version
 nodejs -v
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'password'";
+
+mkdir web2
+unzip webapp.zip -d web2
+cd web2
+npm install

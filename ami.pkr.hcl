@@ -24,6 +24,10 @@ build {
   sources = [
     "source.amazon-ebs.debian"
   ]
+  provisioner "file" {
+    source      = "webapp.zip"
+    destination = "~/webapp.zip"
+  }
   provisioner "shell" {
     scripts = [
       "./setup.sh",
