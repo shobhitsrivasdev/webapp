@@ -20,6 +20,7 @@ nodejs -v
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'password'";
 
 mkdir web2
-unzip webapp.zip -d web2
+unzip assignment-03.zip -d web2
 cd web2
+ls -a
 npm install
