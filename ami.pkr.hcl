@@ -47,13 +47,13 @@ packer {
 }
 
 source "amazon-ebs" "debian" {
-  ami_name      = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  source_ami    = var.SOURCE_AMI != null ? var.SOURCE_AMI : "ami-0b6edd8449255b799"
-  instance_type = var.INSTANCE_TYPE != null ? var.INSTANCE_TYPE : "t2.micro"
-  region        = var.REGION != null ? var.REGION : "us-west-2"
-  profile       = var.PROFILE != null ? var.PROFILE : "dev"
-  ssh_username  = var.SSH_USERNAME != null ? var.SSH_USERNAME : "admin"
-  ami_users     = var.AMI_USERS != null ? split(",", var.AMI_USERS) : ["252513075420", "966862039609"]
+  ami_name     = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
+  source_ami   = var.SOURCE_AMI
+  instance_type = var.INSTANCE_TYPE
+  region       = var.REGION
+  profile      = var.PROFILE
+  ssh_username = var.SSH_USERNAME  # Make sure this value is being set
+  ami_users    = split(",", var.AMI_USERS)
 }
 
 build {
