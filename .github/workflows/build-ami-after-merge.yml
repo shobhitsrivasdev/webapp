@@ -3,7 +3,7 @@ name: Build AMI after PR is merged
 on:
   push:
     branches:
-      - feature-github
+      - main
 
 jobs:
   build-ami:
