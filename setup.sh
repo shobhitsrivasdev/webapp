@@ -14,11 +14,14 @@ sudo systemctl enable postgresql
 # Install Node.js and npm
 sudo apt install -y nodejs
 sudo apt install -y npm
+sudo apt install -y unzip
 
 # Check Node.js version
 nodejs -v
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD  '$PGPASSWORD'";
 
-# Configure PostgreSQL: set password, create database, and create user
-sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD password;"
-sudo -u postgres createdb postgres
-sudo -u postgres createuser --interactive --pwprompt shobhitsrivastava
+mkdir web2
+unzip webapp.zip -d web2
+cd web2
+ls -a
+npm install
