@@ -31,7 +31,7 @@ variable "SSH_USERNAME" {
 
 variable "AMI_USERS" {
   type        = string
-  default     = "252513075420,966862039609",
+  default     = "252513075420,966862039609"
   description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
 }
 
