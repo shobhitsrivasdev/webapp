@@ -1,37 +1,37 @@
 
 variable "SOURCE_AMI" {
   type        = string
-  default     = ""
+  default     = "ami-0b6edd8449255b799"
   description = "Source AMI ID"
 }
 
 variable "INSTANCE_TYPE" {
   type        = string
-  default     = ""
+  default     = "t2.micro"
   description = "Instance Type for the AMI"
 }
 
 variable "REGION" {
   type        = string
-  default     = ""
+  default     = "us-west-2"
   description = "AWS Region"
 }
 
 variable "PROFILE" {
   type        = string
-  default     = ""
+  default     = "dev"
   description = "AWS CLI profile name"
 }
 
 variable "SSH_USERNAME" {
   type        = string
-  default     = ""
+  default     = "admin"
   description = "SSH Username to access the instance"
 }
 
 variable "AMI_USERS" {
   type        = string
-  default     = ""
+  default     = "252513075420,966862039609",
   description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
 }
 
