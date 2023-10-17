@@ -18,7 +18,7 @@ sudo apt install -y unzip
 
 # Check Node.js version
 nodejs -v
-sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD  '$PGPASSWORD'";
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD  'password'";
 
 mkdir web2
 unzip webapp.zip -d web2
