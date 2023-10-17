@@ -1,9 +1,9 @@
 name: Build CI
 
 on:
-  pull_request:
+  push:
     branches:
-      - main # Assuming your primary branch is named 'main'
+      - feature-github
 
 jobs:
   build-and-test:
