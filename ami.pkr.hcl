@@ -47,13 +47,13 @@ packer {
 }
 
 source "amazon-ebs" "debian" {
-  ami_name     = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  source_ami   = var.SOURCE_AMI
+  ami_name      = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
+  source_ami    = var.SOURCE_AMI
   instance_type = var.INSTANCE_TYPE
-  region       = var.REGION
-  profile      = var.PROFILE
-  ssh_username = var.SSH_USERNAME  # Make sure this value is being set
-  ami_users    = split(",", var.AMI_USERS)
+  region        = var.REGION
+  profile       = var.PROFILE
+  ssh_username  = var.SSH_USERNAME # Make sure this value is being set
+  ami_users     = split(",", var.AMI_USERS)
 }
 
 build {
