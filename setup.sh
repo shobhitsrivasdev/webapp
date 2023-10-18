@@ -15,7 +15,8 @@ sudo systemctl enable postgresql
 sudo apt install -y nodejs
 sudo apt install -y npm
 sudo apt install -y unzip
-
+# Remove git
+sudo apt-get remove git
 # Check Node.js version
 nodejs -v
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD  'password'";
