@@ -34,6 +34,24 @@ variable "AMI_USERS" {
   default     = "252513075420,966862039609"
   description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
 }
+variable "OS_NAME" {
+  type        = string
+  default     = "debian-12-amd64-*"
+  description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
+}
+
+variable "OS_ROOT_TYPE" {
+  type        = string
+  default     = "ebs"
+  description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
+}
+
+variable "OS_VER" {
+  type        = string
+  default     = "hvm"
+  description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
+}
+
 
 
 packer {
@@ -47,8 +65,16 @@ packer {
 }
 
 source "amazon-ebs" "debian" {
-  ami_name      = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  source_ami    = var.SOURCE_AMI
+  ami_name = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
+  source_ami_filter {
+    filters = {
+      name = "${var.OS_NAME}"
+      root-device-type = "${var.OS_ROOT_TYPE}"
+      virtualization-type = "${var.OS_VER}"
+    }
+    most_recent = true
+    owners      = ["amazon"]
+  }
   instance_type = var.INSTANCE_TYPE
   region        = var.REGION
   profile       = var.PROFILE
