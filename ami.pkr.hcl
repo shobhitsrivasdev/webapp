@@ -51,6 +51,21 @@ variable "OS_VER" {
   default     = "hvm"
   description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
 }
+variable "DEVICE_NAME" {
+  type        = string
+  default     = "/dev/xvda"
+  description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
+}
+variable "VOLUME_SIZE" {
+  type        = string
+  default     = "25"
+  description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
+}
+variable "VOLUME_TYPE" {
+  type        = string
+  default     = "gp2"
+  description = "Comma-separated list of AWS Account IDs that will have access to the AMI"
+}
 
 
 
@@ -80,6 +95,13 @@ source "amazon-ebs" "debian" {
   profile       = var.PROFILE
   ssh_username  = var.SSH_USERNAME
   ami_users     = split(",", var.AMI_USERS)
+
+  launch_block_device_mappings {
+    delete_on_termination = true
+    device_name           = var.DEVICE_NAME
+    volume_size           = var.VOLUME_SIZE
+    volume_type           = var.VOLUME_TYPE
+  }
 }
 
 build {

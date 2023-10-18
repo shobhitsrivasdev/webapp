@@ -21,15 +21,6 @@ jobs:
           echo PGPORT=${{ secrets.PGPORT }} >> .env
           echo PGHOST=${{ secrets.PGHOST }} >> .env
           echo CSVPATH=$"~/opt/users.csv" >> .env
-          echo SOURCE_AMI=${{ vars.SOURCE_AMI }} >> .env
-          echo INSTANCE_TYPE=${{ vars.INSTANCE_TYPE }}>> .env
-          echo REGION=${{ vars.REGION }} >> .env
-          echo PROFILE=${{ vars.PROFILE }} >> .env
-          echo SSH_USERNAME=${{ vars.SSH_USERNAME }} >> .env
-          echo AMI_USERS=${{ vars.AMI_USERS }} >> .env
-          echo OS_NAME=${{ vars.OS_NAME }} >> .env
-          echo OS_ROOT_TYPE=${{ vars.OS_ROOT_TYPE }} >> .env
-          echo OS_VER=${{ vars.OS_VER }} >> .env
           echo "cat .env"
           cat .env
           echo "ls -a ."
@@ -49,6 +40,9 @@ jobs:
           echo OS_NAME=\"${{ vars.OS_NAME }}\" >> ami.pkrvars.hcl
           echo OS_ROOT_TYPE=\"${{ vars.OS_ROOT_TYPE }}\" >> ami.pkrvars.hcl
           echo OS_VER=\"${{ vars.OS_VER }}\" >> ami.pkrvars.hcl
+          echo DEVICE_NAME=\"${{ vars.DEVICE_NAME }}\" >> ami.pkrvars.hcl
+          echo VOLUME_SIZE=\"${{ vars.VOLUME_SIZE }}\" >> ami.pkrvars.hcl
+          echo VOLUME_TYPE=\"${{ vars.VOLUME_TYPE }}\" >> ami.pkrvars.hcl
       - name: Step 2 - zip all the webapp files
         run: |
           zip -r webapp.zip ./
