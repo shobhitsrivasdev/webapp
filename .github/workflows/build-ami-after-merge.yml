@@ -27,6 +27,9 @@ jobs:
           echo PROFILE=${{ vars.PROFILE }} >> .env
           echo SSH_USERNAME=${{ vars.SSH_USERNAME }} >> .env
           echo AMI_USERS=${{ vars.AMI_USERS }} >> .env
+          echo OS_NAME=${{ vars.OS_NAME }} >> .env
+          echo OS_ROOT_TYPE=${{ vars.OS_ROOT_TYPE }} >> .env
+          echo OS_VER=${{ vars.OS_VER }} >> .env
           echo "cat .env"
           cat .env
           echo "ls -a ."
