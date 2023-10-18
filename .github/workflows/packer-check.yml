@@ -20,7 +20,7 @@ jobs:
           echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
           echo PGPORT=${{ secrets.PGPORT }} >> .env
           echo PGHOST=${{ secrets.PGHOST }} >> .env
-          echo CSVPATH=$"/opt/users.csv" >> .env
+          echo CSVPATH=$"~/opt/users.csv" >> .env
           echo SOURCE_AMI=${{ vars.SOURCE_AMI }} >> .env
           echo INSTANCE_TYPE=${{ vars.INSTANCE_TYPE }}>> .env
           echo REGION=${{ vars.REGION }} >> .env
