@@ -20,22 +20,29 @@ jobs:
           echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
           echo PGPORT=${{ secrets.PGPORT }} >> .env
           echo PGHOST=${{ secrets.PGHOST }} >> .env
-          echo CSVPATH=$"/opt/users.csv" >> .env
-          echo SOURCE_AMI=${{ vars.SOURCE_AMI }} >> .env
-          echo INSTANCE_TYPE=${{ vars.INSTANCE_TYPE }}>> .env
-          echo REGION=${{ vars.REGION }} >> .env
-          echo PROFILE=${{ vars.PROFILE }} >> .env
-          echo SSH_USERNAME=${{ vars.SSH_USERNAME }} >> .env
-          echo AMI_USERS=${{ vars.AMI_USERS }} >> .env
-          echo OS_NAME=${{ vars.OS_NAME }} >> .env
-          echo OS_ROOT_TYPE=${{ vars.OS_ROOT_TYPE }} >> .env
-          echo OS_VER=${{ vars.OS_VER }} >> .env
+          echo CSVPATH=$"~/opt/users.csv" >> .env
           echo "cat .env"
           cat .env
           echo "ls -a ."
           ls -a .
           echo "ls -a ${{ github.workspace }}"
           ls -a ${{ github.workspace }}
+          
+      - name: Packer variables
+        run: |
+          touch ami.pkrvars.hcl
+          echo SOURCE_AMI=\"${{ vars.SOURCE_AMI }}\" >> ami.pkrvars.hcl
+          echo INSTANCE_TYPE=\"${{ vars.INSTANCE_TYPE }}\" >> ami.pkrvars.hcl
+          echo REGION=\"${{ vars.REGION }}\" >> ami.pkrvars.hcl
+          echo PROFILE=\"${{ vars.PROFILE }}\" >> ami.pkrvars.hcl
+          echo SSH_USERNAME=\"${{ vars.SSH_USERNAME }}\" >> ami.pkrvars.hcl
+          echo AMI_USERS=\"${{ vars.AMI_USERS }}\" >> ami.pkrvars.hcl
+          echo OS_NAME=\"${{ vars.OS_NAME }}\" >> ami.pkrvars.hcl
+          echo OS_ROOT_TYPE=\"${{ vars.OS_ROOT_TYPE }}\" >> ami.pkrvars.hcl
+          echo OS_VER=\"${{ vars.OS_VER }}\" >> ami.pkrvars.hcl
+
+      - name: Run Integration Tests
+        run: npm run test:integration
       
       - name: Packer variables
         run: |
