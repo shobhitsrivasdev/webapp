@@ -78,7 +78,7 @@ source "amazon-ebs" "debian" {
   instance_type = var.INSTANCE_TYPE
   region        = var.REGION
   profile       = var.PROFILE
-  ssh_username  = var.SSH_USERNAME 
+  ssh_username  = var.SSH_USERNAME
   ami_users     = split(",", var.AMI_USERS)
 }
 
