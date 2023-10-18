@@ -40,15 +40,15 @@ jobs:
       - name: Packer variables
         run: |
           touch ami.pkrvars.hcl
-          echo SOURCE_AMI=\"${{ secrets.SOURCE_AMI }}\" >> ami.pkrvars.hcl
-          echo INSTANCE_TYPE=\"${{ secrets.INSTANCE_TYPE }}\" >> ami.pkrvars.hcl
-          echo REGION=\"${{ secrets.REGION }}\" >> ami.pkrvars.hcl
-          echo PROFILE=\"${{ secrets.PROFILE }}\" >> ami.pkrvars.hcl
-          echo SSH_USERNAME=\"${{ secrets.SSH_USERNAME }}\" >> ami.pkrvars.hcl
-          echo AMI_USERS=\"${{ secrets.AMI_USERS }}\" >> ami.pkrvars.hcl
-          echo OS_NAME=\"${{ secrets.OS_NAME }}\" >> ami.pkrvars.hcl
-          echo OS_ROOT_TYPE=\"${{ secrets.OS_ROOT_TYPE }}\" >> ami.pkrvars.hcl
-          echo OS_VER=\"${{ env.OS_VER }}\" >> ami.pkrvars.hcl
+          echo SOURCE_AMI=\"${{ vars.SOURCE_AMI }}\" >> ami.pkrvars.hcl
+          echo INSTANCE_TYPE=\"${{ vars.INSTANCE_TYPE }}\" >> ami.pkrvars.hcl
+          echo REGION=\"${{ vars.REGION }}\" >> ami.pkrvars.hcl
+          echo PROFILE=\"${{ vars.PROFILE }}\" >> ami.pkrvars.hcl
+          echo SSH_USERNAME=\"${{ vars.SSH_USERNAME }}\" >> ami.pkrvars.hcl
+          echo AMI_USERS=\"${{ vars.AMI_USERS }}\" >> ami.pkrvars.hcl
+          echo OS_NAME=\"${{ vars.OS_NAME }}\" >> ami.pkrvars.hcl
+          echo OS_ROOT_TYPE=\"${{ vars.OS_ROOT_TYPE }}\" >> ami.pkrvars.hcl
+          echo OS_VER=\"${{ vars.OS_VER }}\" >> ami.pkrvars.hcl
         
       - name: Step 2 - zip all the webapp files
         run: |
