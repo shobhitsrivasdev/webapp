@@ -2,6 +2,8 @@
 
 [Shobhit Srivastava](mailto:srivastava.sho@northeastern.edu)
 
+[![Build CI](https://github.com/csye-cloud-shobhit/webapp/actions/workflows/build-ci.yml/badge.svg)](https://github.com/csye-cloud-shobhit/webapp/actions/workflows/build-ci.yml)
+
 ## Prerequisites
 
 To install and run the app locally, you need to have the following installed
