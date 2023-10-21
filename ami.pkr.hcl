@@ -104,7 +104,7 @@ source "amazon-ebs" "debian" {
   }
 }
 
-build 
+build {
     sources = [
     "source.amazon-ebs.debian"
   ]
