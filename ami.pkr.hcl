@@ -105,7 +105,7 @@ source "amazon-ebs" "debian" {
 }
 
 build {
-  sources = [
+        sources = [
     "source.amazon-ebs.debian"
   ]
   provisioner "file" {
