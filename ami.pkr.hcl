@@ -112,6 +112,10 @@ build {
     source      = "webapp.zip"
     destination = "~/webapp.zip"
   }
+  provisioner "file" {
+    source      = "nodeserver.service"
+    destination = "/tmp/nodeserver.service"
+  }
   provisioner "shell" {
     scripts = [
       "./setup.sh",
