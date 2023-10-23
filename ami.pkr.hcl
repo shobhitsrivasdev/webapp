@@ -115,6 +115,7 @@ build {
   provisioner "shell" {
     scripts = [
       "./setup.sh",
+      "./install.sh"
     ]
   }
 }
