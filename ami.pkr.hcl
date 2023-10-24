@@ -25,7 +25,7 @@ variable "PROFILE" {
 
 variable "SSH_USERNAME" {
   type        = string
-  default     = "admin"
+  default     = "csye6225"
   description = "SSH Username to access the instance"
 }
 
@@ -110,7 +110,7 @@ build {
   ]
   provisioner "file" {
     source      = "webapp.zip"
-    destination = "~/webapp.zip"
+    destination = "/home/csye6225/webapp.zip"
   }
   provisioner "file" {
     source      = "nodeserver.service"
