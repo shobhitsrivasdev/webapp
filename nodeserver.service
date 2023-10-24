@@ -1,16 +1,14 @@
 [Unit]
 Description=REST API service
-After=cloud-final.service
+After=network.target cloud-final.service
 Wants=cloud-final.service
 
 [Service]
 Type=simple
-User=admin
-ExecStart=node /home/admin/web2/app.js
-EnvironmentFile=/home/admin/web2/.env
-StandardOutput=syslog
-StandardError=syslog
+User=csye6225
+ExecStart=node /home/csye6225/web2/app.js
+EnvironmentFile=/home/csye6225/web2/.env
 Restart=on-failure
 
 [Install]
-WantedBy=cloud-init.target
+WantedBy=multi-user.target
