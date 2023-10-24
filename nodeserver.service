@@ -6,8 +6,8 @@ Wants=cloud-final.service
 [Service]
 Type=simple
 User=csye6225
-ExecStart=node /home/csye6225/web2/app.js
-EnvironmentFile=/home/csye6225/web2/.env
+ExecStart=node /home/csye6225/app.js
+EnvironmentFile=/home/csye6225/.env
 Restart=on-failure
 
 [Install]
