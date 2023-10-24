@@ -17,6 +17,9 @@ nodejs -v
 sudo groupadd csye6225
 sudo useradd -m -s /bin/bash -g csye6225 csye6225
 
+sudo chown -R csye6225:csye6225 /home/csye6225
+sudo chmod 700 /home/csye6225
+
 # Set directory for the web app
 WEB_APP_DIR="/home/csye6225/web2"
 
