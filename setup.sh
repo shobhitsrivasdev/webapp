@@ -4,39 +4,40 @@
 sudo apt update
 sudo apt upgrade -y
 
-# Install PostgreSQL and related packages
-#sudo apt install -y postgresql postgresql-contrib
+# Install Node.js, npm, and unzip
+sudo apt install -y nodejs npm unzip
 
-# Start and enable PostgreSQL service
-#sudo systemctl start postgresql
-#sudo systemctl enable postgresql
-
-# Install Node.js and npm
-sudo apt install -y nodejs
-sudo apt install -y npm
-sudo apt install -y unzip
 # Remove git
 sudo apt-get -y remove git
+
 # Check Node.js version
 nodejs -v
-#sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD  'password'";
+
+# Create user and group
 sudo groupadd csye6225
-sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
+sudo useradd -m -s /bin/bash -g csye6225 csye6225
+
+# Set directory for the web app
+WEB_APP_DIR="/home/csye6225/web2"
+
+# Create the directory
+sudo mkdir -p $WEB_APP_DIR
+
+# Unzip the web app into the directory
+sudo unzip /home/csye6225/webapp.zip -d $WEB_APP_DIR
 
 # Set directory permissions
-sudo find /home/csye6225/web2/ -type d -exec chmod 755 {} \;
+sudo chown -R csye6225:csye6225 $WEB_APP_DIR
+sudo find $WEB_APP_DIR -type d -exec chmod 755 {} \;
 
 # Set file permissions
-sudo find /home/csye6225/web2/ -type f -exec chmod 644 {} \;
+sudo find $WEB_APP_DIR -type f -exec chmod 644 {} \;
 
 # If there are specific executable files, set their permissions
-sudo chmod 755 /home/csye6225/web2/setup.sh
-sudo chmod 755 /home/csye6225/web2/install.sh
+sudo chmod 755 $WEB_APP_DIR/setup.sh
+sudo chmod 755 $WEB_APP_DIR/install.sh
+sudo chmod 600 $WEB_APP_DIR/.env
 
-sudo chmod 600 /home/csye6225/web2/.env
-
-mkdir web2
-unzip webapp.zip -d web2
-cd web2
-ls -a
-npm install
+# Install npm packages
+cd $WEB_APP_DIR
+sudo npm install
