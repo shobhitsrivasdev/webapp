@@ -25,7 +25,7 @@ variable "PROFILE" {
 
 variable "SSH_USERNAME" {
   type        = string
-  default     = "csye6225"
+  default     = "admin"
   description = "SSH Username to access the instance"
 }
 
@@ -92,7 +92,7 @@ source "amazon-ebs" "debian" {
   }
   instance_type = var.INSTANCE_TYPE
   region        = var.REGION
-  profile       = "dev"
+  profile       = var.PROFILE
   ssh_username  = var.SSH_USERNAME
   ami_users     = split(",", var.AMI_USERS)
 
@@ -110,7 +110,7 @@ build {
   ]
   provisioner "file" {
     source      = "webapp.zip"
-    destination = "/home/csye6225/webapp.zip"
+    destination = "/tmp/webapp.zip"
   }
   provisioner "file" {
     source      = "nodeserver.service"
