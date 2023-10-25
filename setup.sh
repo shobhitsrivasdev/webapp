@@ -13,7 +13,8 @@ sudo apt-get -y remove git
 nodejs -v
 
 cd /opt
-sudo unzip webapp.zip
+sudo unzip webapp.zip -d csye6225
+cd csye6225
 sudo ls -la
 sudo npm install
  

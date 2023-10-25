@@ -6,8 +6,8 @@ After=network.target
 Type=simple
 User=csye6225
 Group=csye6225
-ExecStart=node /opt/webapp/app.js
-EnvironmentFile=/opt/webapp/.env
+ExecStart=node /opt/csye6225/app.js
+EnvironmentFile=/opt/csye6225/.env
 Restart=on-failure
 
 [Install]
