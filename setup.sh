@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo cp tmp/webapp.zip /opt/webapp.zip
+sudo cp /tmp/webapp.zip /opt/webapp.zip
 
 sudo groupadd csye6225
 sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
