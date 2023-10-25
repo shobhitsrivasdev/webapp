@@ -1,6 +1,7 @@
 import Account from "../models/user.model.js";
 import csv from "csv-parser";
 import fs from "fs";
+import * as dotenv from "dotenv";
 dotenv.config()
 
 export const create = async () => {
