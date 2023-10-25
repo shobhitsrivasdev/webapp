@@ -13,7 +13,7 @@ variable "INSTANCE_TYPE" {
 
 variable "REGION" {
   type        = string
-  default     = "us-west-2"
+  default     = "us-west-1"
   description = "AWS Region"
 }
 
