@@ -8,7 +8,7 @@ User=csye6225
 Group=csye6225
 ExecStart=node /opt/webapp/app.js
 EnvironmentFile=/opt/webapp/.env
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=cloud-init.target
