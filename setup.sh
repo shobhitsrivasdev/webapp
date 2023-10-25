@@ -13,8 +13,8 @@ sudo apt-get -y remove git
 nodejs -v
 
 cd /opt
-unzip webapp.zip
-ls -la
-npm install
+sudo unzip webapp.zip
+sudo ls -la
+sudo npm install
  
  
