@@ -1,9 +1,10 @@
 import Account from "../models/user.model.js";
 import csv from "csv-parser";
 import fs from "fs";
+dotenv.config()
 
 export const create = async () => {
-  fs.createReadStream("src/utils/users.csv")
+  fs.createReadStream(process.env.CSVPATH)
     .on("error", () => {
       console.error("Error in reading file");
     })
