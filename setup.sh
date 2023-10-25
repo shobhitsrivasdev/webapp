@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo cp /tmp/webapp.zip /opt/webapp.zip
+sudo cp tmp/webapp.zip /opt/webapp.zip
 
 sudo groupadd csye6225
 sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
@@ -17,7 +17,8 @@ sudo apt-get -y remove git
 nodejs -v
 
 cd /opt
-sudo unzip webapp.zip
+sudo unzip webapp.zip -d csye6225
+cd csye6225
 sudo ls -la
 sudo npm install
  
