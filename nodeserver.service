@@ -1,14 +1,14 @@
 [Unit]
 Description=REST API service
-After=network.target cloud-final.service
-Wants=cloud-final.service
+After=network.target
 
 [Service]
 Type=simple
-User=webappuser
-ExecStart=node /home/webapp/app.js
-EnvironmentFile=/home/webapp/.env
+User=csye6225
+Group=csye6225
+ExecStart=node /opt/webapp/app.js
+EnvironmentFile=/opt/webapp/.env
 Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=cloud-init.target
