@@ -4,11 +4,12 @@ After=network.target
 
 [Service]
 Type=simple
+WorkingDirectory=/opt
 User=csye6225
 Group=csye6225
-ExecStart=node /opt/app.js
+ExecStart=/usr/bin/node /opt/app.js
 EnvironmentFile=/opt/.env
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=cloud-init.target
