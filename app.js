@@ -3,6 +3,7 @@ const app = express();
 //import healthz from "./routes/healthz.route.js";
 import routes from "./src/routes/index.js";
 import { create } from "./src/services/userService.js";
+import  logger from "./configs/logger.config.js";
 app.use(express.json());
 app.disable("x-powered-by");
 
@@ -13,5 +14,6 @@ create();
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
+  logger.info("logs");
   console.log(`Server running at ${port}`);
 });

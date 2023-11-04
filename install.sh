@@ -8,6 +8,8 @@ sudo systemctl enable nodeserver
 sudo systemctl start nodeserver
 sudo systemctl restart nodeserver
 sudo systemctl status nodeserver
+sudo systemctl enable amazon-cloudwatch-agent
+sudo systemctl start amazon-cloudwatch-agent
 APISRVC=$?
 if [ $APISRVC -eq 0 ]; then
   echo "API service is installed successfully!"
