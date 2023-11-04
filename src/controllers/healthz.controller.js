@@ -1,5 +1,5 @@
 import db from "../models/index.js";
-import logger from "./configs/logger.config.js";
+import logger from "../../configs/logger.config.js";
 const healthz = (req, res) => {
   logger.info("Hitting Healthz API");
   try {
