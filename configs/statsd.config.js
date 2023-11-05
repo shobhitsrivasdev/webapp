@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const client = new StatsD({
-  host: process.env.PGHOST,
+  host: "localhost",
   port: 8125,
 });
 
