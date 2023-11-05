@@ -3,7 +3,7 @@ import logger from "../../configs/logger.config.js";
 import client from "../../configs/statsd.config.js";
 const healthz = (req, res) => {
   logger.info("Hitting Healthz API");
-  client.increment("endpoint.healthz");
+  client.increment("endpoint.healthz.get");
   try {
     if (req.method !== "GET") {
       res.status(405).end();
