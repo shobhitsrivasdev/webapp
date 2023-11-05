@@ -1,4 +1,6 @@
 import * as assignmentService from "../services/assignmentService.js";
+import client from "../../configs/statsd.config.js";
+import logger from "../../configs/logger.config.js";
 import {
   handleErrorResponse,
   validateAssignmentObject,
@@ -6,6 +8,8 @@ import {
 } from "../utils/utils.js";
 
 export const getAll = async (request, response) => {
+  client.increment("endpoint.v1.assignments.getAll");
+  logger.info("Hitting endpoint.v1.assignments.getAll");
   setResponseHeader(response);
   try {
     console.log("Received GET: /v1/assignments");
@@ -17,6 +21,8 @@ export const getAll = async (request, response) => {
 };
 
 export const post = async (request, response) => {
+  client.increment("endpoint.v1.assignments.post");
+  logger.info("Hitting endpoint.v1.assignments.post");
   setResponseHeader(response);
   try {
     if (!validateAssignmentObject(request.body, "POST")) {
@@ -32,6 +38,8 @@ export const post = async (request, response) => {
 };
 
 export const getOne = async (request, response) => {
+  client.increment("endpoint.v1.assignments.getOne");
+  logger.info("Hitting endpoint.v1.assignments.getOne");
   setResponseHeader(response);
   try {
     const doc = await assignmentService.getSingleAssignment(request, response);
@@ -43,6 +51,8 @@ export const getOne = async (request, response) => {
 };
 
 export const deleteOne = async (request, response) => {
+  client.increment("endpoint.v1.assignments.delete");
+  logger.info("Hitting endpoint.v1.assignments.delete");
   setResponseHeader(response);
   try {
     await assignmentService.deleteSingleAssignment(request, response);
@@ -53,6 +63,8 @@ export const deleteOne = async (request, response) => {
 };
 
 export const updateOne = async (request, response) => {
+  client.increment("endpoint.v1.assignments.update");
+  logger.info("Hitting endpoint.v1.assignments.update");
   setResponseHeader(response);
   if (!request.body || Object.keys(request.body).length === 0) {
     return response.status(400).json({ message: "Bad Request" });
