@@ -1,5 +1,6 @@
 import Assignment from "../models/assignment.model.js";
 import { isUserAuthorized } from "../utils/assignmentUtils.js";
+import logger from "../../configs/logger.config.js";
 
 export const create = async (request, response) => {
   const user = await isUserAuthorized(request);
@@ -8,9 +9,10 @@ export const create = async (request, response) => {
     request.query &&
     Object.values(request.query).length
   ) {
+    logger.error("endpoint.v1.assignments.getAll || Bad Request");
     throw "Bad Request";
   }
-
+  logger.info("endpoint.v1.assignments.getAll", request.body);
   user.password = undefined;
   const req = request.body;
   const userId = user.id;
@@ -48,6 +50,7 @@ export const updateSingleAssignment = async (request, response) => {
     request.query &&
     Object.values(request.query).length
   ) {
+    logger.error("Hitting endpoint.v1.assignments.update || Bad Request");
     response.status(400).json({ message: "Bad Request" });
     return;
   }
@@ -125,11 +128,11 @@ export const getSingleAssignment = async (request, response) => {
       Object.values(request.body).length) ||
     (request.query && Object.values(request.query).length)
   ) {
+    logger.error("Hitting endpoint.v1.assignments.getOne + Bad Request");
     response.status(400).json({ message: "Bad Request" });
     return;
   }
   const assignment_id = request.params.id;
-
   const getDocumentsResult = await Assignment.findOne({
     where: {
       id: assignment_id,
@@ -157,13 +160,11 @@ export const deleteSingleAssignment = async (request, response) => {
       Object.values(request.body).length) ||
     (request.query && Object.values(request.query).length)
   ) {
+    logger.error("Hitting endpoint.v1.assignments.delete + Bad Request");
     response.status(400).json({ message: "Bad Request" });
     return;
   }
   const assignment_id = request.params.id;
-  console.log("USERID", user.id);
-  console.log("Assingment", assignment_id);
-
   const getDocumentsResult = await Assignment.findOne({
     where: {
       user_id: user.id,

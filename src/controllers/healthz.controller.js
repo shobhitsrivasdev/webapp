@@ -2,7 +2,7 @@ import db from "../models/index.js";
 import logger from "../../configs/logger.config.js";
 import client from "../../configs/statsd.config.js";
 const healthz = (req, res) => {
-  logger.info("Hitting Healthz API");
+  logger.info("endpoint.healthz");
   client.increment("endpoint.healthz.get");
   try {
     if (req.method !== "GET") {
@@ -11,6 +11,7 @@ const healthz = (req, res) => {
       (req.method === "GET" && req.body && Object.values(req.body).length) ||
       (req.query && Object.values(req.query).length)
     ) {
+      logger.error("endpoint.healthz + Bad Request");
       res.status(400).end();
     } else {
       db.connectionTest()
