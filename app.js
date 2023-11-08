@@ -14,6 +14,6 @@ create();
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-  logger.info("logs");
+  logger.info(`Server running at ${port}`);
   console.log(`Server running at ${port}`);
 });
