@@ -15,12 +15,8 @@ router
   .delete(assignmentsController.deleteOne)
   .put(assignmentsController.updateOne)
   .all(methodNotAllowed);
-
-//router.post("/assignments", upload.any(), assignmentsController.post);
-
-/* router
-  .route("/assignments/:id")
-  .get(assignmentsController.getOne)
-  .delete(assignmentsController.deleteOne); */
+router
+  .route("/assignments/:id/submission")
+  .post(assignmentsController.submitAssignment)
 
 export default router;

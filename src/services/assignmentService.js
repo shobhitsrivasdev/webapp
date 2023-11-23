@@ -1,6 +1,17 @@
 import Assignment from "../models/assignment.model.js";
+import AssignmentSubmission from "../models/assignment-submission.model.js";
 import { isUserAuthorized } from "../utils/assignmentUtils.js";
 import logger from "../../configs/logger.config.js";
+import AWS from "aws-sdk";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+});
+const sns = new AWS.SNS();
 
 export const create = async (request, response) => {
   const user = await isUserAuthorized(request);
@@ -183,4 +194,68 @@ export const deleteSingleAssignment = async (request, response) => {
     },
   });
   return;
+};
+
+export const submitAssignment = async (request, response) => {
+  const user = await isUserAuthorized(request, "assignment");
+  const assignmentId = request.params.id;
+  if (
+    request.method === "POST" &&
+    request.query &&
+    Object.values(request.query).length
+  ) {
+    logger.error("Hitting endpoint.v1.assignments.submit + Bad Request");
+    response.status(400).json({ message: "BadRequest" });
+    return;
+  }
+  const req = request.body;
+  if (req.submission_url && typeof req.submission_url !== "string") {
+    response
+      .status(400)
+      .json({ message: "Bad Request: Invalid submission URL" });
+    return;
+  }
+  const allAssignments = await Assignment.findAll();
+  const assignment = allAssignments.find((data) => data.id == assignmentId);
+  if (!assignment) {
+    response.status(400).json({ message: "Assignment not found" });
+    return;
+  }
+  if (new Date() < new Date(assignment.deadline)) {
+    console.log("New Date", new Date());
+    console.log("New Date", new Date(assignment.deadline));
+    response
+      .status(400)
+      .json({ message: "Submission Deadline Already passed" });
+    return;
+  }
+  const allSubmissions = await AssignmentSubmission.findAll({
+    where: { assignment_id: assignmentId },
+  });
+  const totalSubmissions = allSubmissions.length;
+  console.log("assignment.retries", assignment.num_of_attempts);
+  if (totalSubmissions >= assignment.num_of_attempts) {
+    response.status(400).json({ message: "Retry limit Exceeded" });
+    return;
+  }
+  const assignmentCreated = await AssignmentSubmission.create({
+    assignment_id: assignment.id,
+    submission_url: req.submission_url,
+    submission_date: new Date(),
+  });
+  const params = {
+    Message: JSON.stringify({
+      email: user.email,
+      releaseUrl: req.submission_url,
+    }),
+    TopicArn: process.env.TopicArn
+  };
+  sns.publish(params, (err) => {
+    if (err) {
+      console.error(err);
+      response.status(500).send("Failed to post to SNS topic");
+      return;
+    }
+    response.send("Submission received and posted to SNS topic");
+  });
 };

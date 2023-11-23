@@ -69,6 +69,9 @@ jobs:
           echo PGPORT=${{ secrets.PGPORT }} >> .env
           echo PGHOST=${{ secrets.PGHOST }} >> .env
           echo CSVPATH=$"~/opt/users.csv" >> .env
+          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}  >> .env
+          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
+          echo AWS_REGION=${{ secrets.AWS_REGION }}  >> .env
           echo "cat .env"
           cat .env
           echo "ls -a ."
