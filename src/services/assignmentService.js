@@ -5,12 +5,6 @@ import logger from "../../configs/logger.config.js";
 import AWS from "aws-sdk";
 import * as dotenv from "dotenv";
 dotenv.config();
-
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-});
 const sns = new AWS.SNS();
 
 export const create = async (request, response) => {
