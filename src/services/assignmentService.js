@@ -7,7 +7,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 AWS.config.update({
-  region: process.env.AWS_REGION
+  region: process.env.AWS_REGION,
 });
 const sns = new AWS.SNS();
 
@@ -245,8 +245,10 @@ export const submitAssignment = async (request, response) => {
     Message: JSON.stringify({
       email: user.email,
       releaseUrl: req.submission_url,
+      assignment_id: assignment.id,
+      user_id: user.id,
     }),
-    TopicArn: process.env.TopicArn
+    TopicArn: process.env.TopicArn,
   };
   sns.publish(params, (err) => {
     if (err) {

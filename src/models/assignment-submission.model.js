@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../utils/utils.js";
+import Assignment from "../models/assignment.model.js";
 
 const AssignmentSubmission = sequelize.define(
   "assignmentSubmission",
@@ -56,9 +57,13 @@ const AssignmentSubmission = sequelize.define(
 );
 
 try {
+  AssignmentSubmission.belongsTo(Assignment, {
+    foreignKey: "assignment_id",
+    onDelete: "CASCADE",
+  });
   await sequelize.authenticate();
   console.log("Database connection has been established successfully.");
-  await AssignmentSubmission.sync({ force: true });
+  await AssignmentSubmission.sync({ alter: true });
   console.log("Documents model was synchronized successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
