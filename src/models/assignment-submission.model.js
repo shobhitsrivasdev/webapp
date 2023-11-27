@@ -57,10 +57,6 @@ const AssignmentSubmission = sequelize.define(
 );
 
 try {
-  AssignmentSubmission.belongsTo(Assignment, {
-    foreignKey: "assignment_id",
-    onDelete: "CASCADE",
-  });
   await sequelize.authenticate();
   console.log("Database connection has been established successfully.");
   await AssignmentSubmission.sync({ alter: true });
