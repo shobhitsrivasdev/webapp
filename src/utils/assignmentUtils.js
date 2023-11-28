@@ -26,6 +26,10 @@ export const isUserAuthorized = async (request, type) => {
 
   const compareResult = await compare(reqPass, dbAcc.password);
   // Verify credentials
+
+  if (compareResult && type == "submission") {
+    return dbAcc;
+  }
   const reqId = request.params.id;
 
   if (reqId && type == "assignment") {

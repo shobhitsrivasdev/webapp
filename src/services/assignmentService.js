@@ -195,7 +195,7 @@ export const deleteSingleAssignment = async (request, response) => {
 };
 
 export const submitAssignment = async (request, response) => {
-  const user = await isUserAuthorized(request, "assignment");
+  const user = await isUserAuthorized(request, "submission");
   const assignmentId = request.params.id;
   if (
     request.method === "POST" &&
@@ -228,7 +228,7 @@ export const submitAssignment = async (request, response) => {
     return;
   }
   const allSubmissions = await AssignmentSubmission.findAll({
-    where: { assignment_id: assignmentId },
+    where: { assignment_id: assignmentId, user_id: user.id },
   });
   const totalSubmissions = allSubmissions.length;
   console.log("assignment.retries", assignment.num_of_attempts);
@@ -240,6 +240,7 @@ export const submitAssignment = async (request, response) => {
     assignment_id: assignment.id,
     submission_url: req.submission_url,
     submission_date: new Date(),
+    user_id: user.id,
   });
   const params = {
     Message: JSON.stringify({
