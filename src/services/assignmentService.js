@@ -89,6 +89,16 @@ export const updateSingleAssignment = async (request, response) => {
   const assignmentUpdated = await Assignment.findOne({
     where: { id: assignment_id },
   });
+
+  const allSubmissions = await AssignmentSubmission.findAll({
+    where: { assignment_id: assignment_id },
+  });
+  if (allSubmissions.length) {
+    response.status(400).json({
+      message: "Submissions exist for this assignment, Edit not allowed",
+    });
+    return;
+  }
   if (assignmentUpdated) {
     let updatedAssignment = await Assignment.update(newReq, {
       where: {
@@ -174,6 +184,16 @@ export const deleteSingleAssignment = async (request, response) => {
     return;
   }
   const assignment_id = request.params.id;
+
+  const allSubmissions = await AssignmentSubmission.findAll({
+    where: { assignment_id: assignment_id },
+  });
+  if (allSubmissions.length) {
+    response.status(400).json({
+      message: "Submissions exist for this assignment, Edit not allowed",
+    });
+    return;
+  }
   const getDocumentsResult = await Assignment.findOne({
     where: {
       user_id: user.id,
@@ -211,6 +231,12 @@ export const submitAssignment = async (request, response) => {
     response
       .status(400)
       .json({ message: "Bad Request: Invalid submission URL" });
+    return;
+  }
+  if (!req.submission_url || Object.keys(req).length != 1) {
+    response
+      .status(400)
+      .json({ message: "Bad Request: Only Submission Url Allowed" });
     return;
   }
   const allAssignments = await Assignment.findAll();
@@ -251,12 +277,12 @@ export const submitAssignment = async (request, response) => {
     }),
     TopicArn: process.env.TopicArn,
   };
-  sns.publish(params, (err) => {
-    if (err) {
-      console.error(err);
-      response.status(500).send("Failed to post to SNS topic");
-      return;
+  sns.publish(params);
+    return {
+      id: assignmentCreated.id,
+      assignment_id: assignmentCreated.assignment_id,
+      submission_url: assignmentCreated.submission_url,
+      submission_date: assignmentCreated.submission_date,
+      submission_updated: assignmentCreated.submission_updated,
     }
-    response.send("Submission received and posted to SNS topic");
-  });
 };

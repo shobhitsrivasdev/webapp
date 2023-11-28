@@ -78,7 +78,7 @@ export const updateOne = async (request, response) => {
       request,
       response
     );
-    response.status(204).send();
+     response.status(204).send();
   } catch (error) {
     handleErrorResponse(error, response);
   }
@@ -89,11 +89,8 @@ export const submitAssignment = async (request, response) => {
   logger.info("Hitting endpoint.v1.assignments.submit");
   setResponseHeader(response);
   try {
-    const doc = await assignmentService.submitAssignment(
-      request,
-      response
-    );
-    //response.status(204).send();
+    const doc = await assignmentService.submitAssignment(request, response);
+    response.status(201).send(doc);
   } catch (error) {
     handleErrorResponse(error, response);
   }
