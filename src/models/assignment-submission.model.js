@@ -14,13 +14,24 @@ const AssignmentSubmission = sequelize.define(
       allowNull: false,
     },
     assignment_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       readOnly: true,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: "Name cannot be an empty string.",
+          msg: "ID cannot be an empty string.",
+        },
+      },
+    },
+    user_id: {
+      type: DataTypes.UUID,
+      readOnly: true,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "ID cannot be an empty string.",
         },
       },
     },
