@@ -277,12 +277,13 @@ export const submitAssignment = async (request, response) => {
     }),
     TopicArn: process.env.TopicArn,
   };
-  sns.publish(params);
-    return {
-      id: assignmentCreated.id,
-      assignment_id: assignmentCreated.assignment_id,
-      submission_url: assignmentCreated.submission_url,
-      submission_date: assignmentCreated.submission_date,
-      submission_updated: assignmentCreated.submission_updated,
-    }
+  const snsPromise = sns.publish(params).promise();
+  await snsPromise;
+  return {
+    id: assignmentCreated.id,
+    assignment_id: assignmentCreated.assignment_id,
+    submission_url: assignmentCreated.submission_url,
+    submission_date: assignmentCreated.submission_date,
+    submission_updated: assignmentCreated.submission_updated,
+  };
 };
