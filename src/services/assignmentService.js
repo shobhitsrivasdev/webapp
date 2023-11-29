@@ -8,6 +8,8 @@ dotenv.config();
 
 AWS.config.update({
   region: process.env.AWS_REGION,
+/*   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, */
 });
 const sns = new AWS.SNS();
 
@@ -239,6 +241,11 @@ export const submitAssignment = async (request, response) => {
       .json({ message: "Bad Request: Only Submission Url Allowed" });
     return;
   }
+  if (!isValidURL(req.submission_url)) {
+    response
+      .status(400)
+      .json({ message: "Bad Request: Submission Url Not Valid" });
+  }
   const allAssignments = await Assignment.findAll();
   const assignment = allAssignments.find((data) => data.id == assignmentId);
   if (!assignment) {
@@ -286,4 +293,17 @@ export const submitAssignment = async (request, response) => {
     submission_date: assignmentCreated.submission_date,
     submission_updated: assignmentCreated.submission_updated,
   };
+};
+
+const isValidURL = (inputURL) => {
+  try {
+    const parsedURL = new URL(inputURL);
+    return (
+      parsedURL.protocol === "http:" ||
+      (parsedURL.protocol === "https:" &&
+        parsedURL.pathname.toLowerCase().endsWith(".zip"))
+    );
+  } catch (error) {
+    return false;
+  }
 };
