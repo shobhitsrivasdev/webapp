@@ -18,5 +18,6 @@ router
 router
   .route("/assignments/:id/submission")
   .post(assignmentsController.submitAssignment)
+  .all(methodNotAllowed);
 
 export default router;
