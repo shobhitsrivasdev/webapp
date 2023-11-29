@@ -45,7 +45,7 @@ export const create = async (request, response) => {
     name: request.body.name,
     points: request.body.points,
     num_of_attempts: request.body.num_of_attempts,
-    deadline: new Date(),
+    deadline: request.body.deadline,
   });
 
   delete assignmentCreated["dataValues"]?.user_id;
@@ -245,9 +245,7 @@ export const submitAssignment = async (request, response) => {
     response.status(400).json({ message: "Assignment not found" });
     return;
   }
-  if (new Date() < new Date(assignment.deadline)) {
-    console.log("New Date", new Date());
-    console.log("New Date", new Date(assignment.deadline));
+  if (new Date() > new Date(assignment.deadline)) {
     response
       .status(400)
       .json({ message: "Submission Deadline Already passed" });
