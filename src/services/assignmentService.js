@@ -8,7 +8,7 @@ dotenv.config();
 
 AWS.config.update({
   region: process.env.AWS_REGION,
-/*   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  /*   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, */
 });
 const sns = new AWS.SNS();
@@ -298,8 +298,7 @@ const isValidURL = (inputURL) => {
     const parsedURL = new URL(inputURL);
     return (
       parsedURL.protocol === "http:" ||
-      (parsedURL.protocol === "https:" &&
-        parsedURL.pathname.toLowerCase().endsWith(".zip"))
+      (parsedURL.protocol === "https:" && parsedURL.pathname.endsWith(".zip"))
     );
   } catch (error) {
     return false;
