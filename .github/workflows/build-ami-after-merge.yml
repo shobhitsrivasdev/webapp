@@ -84,7 +84,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
-          aws-region: us-east-1
+          aws-region: us-west-1
 
       - name: Update AWS Launch Template Config and Refresh Instances
         run: |
