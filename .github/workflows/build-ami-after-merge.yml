@@ -119,33 +119,33 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
           aws-region: us-west-1
-      
+
       - name: Update AWS Launch Template Config and Refresh Instances
         run: |
           sudo apt-get install jq
- 
-          ASG_NAME="asg_launch_config"
-          LAUNCH_CONFIG="asg_launch_config"
- 
+
+          ASG_NAME=${{ secrets.LAUNCH_TEMPLATE }}
+          LAUNCH_CONFIG=${{ secrets.LAUNCH_TEMPLATE }}
+
           IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
- 
+
           IMAGE_ID=$(jq -n \
             --arg img "$IMAGE" \
             '{"ImageId": $img}')
- 
+
           aws ec2 create-launch-template-version \
             --launch-template-name "$LAUNCH_CONFIG" \
             --version-description updateAMI --source-version 1 \
             --launch-template-data="$IMAGE_ID"
- 
+
           # Update Auto Scaling Group to use new Launch Configuration with the latest version
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name $ASG_NAME \
             --launch-template LaunchTemplateName="$LAUNCH_CONFIG",Version='$Latest'
- 
+
           # Start instance refresh
           aws autoscaling start-instance-refresh \
             --auto-scaling-group-name $ASG_NAME
- 
+
           while true; do
             instance_refresh_status=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name $ASG_NAME \
               --query "InstanceRefreshes[0].Status" --output text)
