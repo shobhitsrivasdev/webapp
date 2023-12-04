@@ -31,3 +31,8 @@ All other methods to the above routes will return a 405 Method Not Allowed statu
 All other methods to this route will return a 405 Method Not Allowed status
 
 Packer Ami Build test
+
+
+### Added certificate
+ 
+- aws acm import-certificate --certificate file://Certificate.pem --certificate-chain file://CertificateChain.pem --private-key file://PrivateKey.pem --profile demo
